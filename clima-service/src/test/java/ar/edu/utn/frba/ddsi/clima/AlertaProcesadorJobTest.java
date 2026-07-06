@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ar.edu.utn.frba.ddsi.clima.batch.AlertaProcesadorJob;
+import ar.edu.utn.frba.ddsi.clima.models.entities.RegistroClima;
 import ar.edu.utn.frba.ddsi.clima.models.repositories.RegistroClimaRepositories;
 import ar.edu.utn.frba.ddsi.clima.services.AlertaService;
 import java.util.Optional;
@@ -36,5 +37,31 @@ public final class AlertaProcesadorJobTest {
     verify(alertaService, never()).estaEnAlerta(any());
 
   }
+
+  @Test
+  public void registroYaAlertado() {
+    RegistroClima registro = new RegistroClima();
+    registro.setFueAlertado(true);
+
+    when(climaRepositories.obtenerUltimo()).thenReturn(Optional.of(registro));
+
+    climaProcesarAlerta.ejecutar();
+
+    verify(alertaService, never()).estaEnAlerta(any());
+  }
+
+  @Test
+  public void registroEnAlerta() {
+    RegistroClima registro = new RegistroClima();
+    registro.setFueAlertado(false);
+
+    when(climaRepositories.obtenerUltimo()).thenReturn(Optional.of(registro));
+    when(alertaService.estaEnAlerta(registro)).thenReturn(true);
+
+    climaProcesarAlerta.ejecutar();
+
+    verify(alertaService).estaEnAlerta(registro);
+  }
+
 
 }

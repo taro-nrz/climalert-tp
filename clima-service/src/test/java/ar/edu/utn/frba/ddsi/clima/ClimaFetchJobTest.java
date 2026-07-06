@@ -28,7 +28,7 @@ public class ClimaFetchJobTest {
   private RegistroClimaRepositories climaRepositories;
 
   @InjectMocks
-  private ClimaFetchJob climaFethcJob;
+  private ClimaFetchJob climaFetchJob;
 
 
   @Test
@@ -52,7 +52,7 @@ public class ClimaFetchJobTest {
 
     when(weatherApiClient.obtenerClimaActual()).thenReturn(response);
 
-    climaFethcJob.ejecutar();
+    climaFetchJob.ejecutar();
 
     verify(climaRepositories).guardar(any(RegistroClima.class));
   }
