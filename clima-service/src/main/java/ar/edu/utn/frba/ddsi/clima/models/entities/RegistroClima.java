@@ -11,6 +11,7 @@ public class RegistroClima {
   private double temperaturaC;
   private int humedad;
   private double vientoKph;
-  private String condicion; //nublado-soleado...etc...
+  private double sensacionTermicaC;
+  private String condicion;
   private boolean fueAlertado = false;
 }

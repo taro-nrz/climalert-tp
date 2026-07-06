@@ -9,6 +9,7 @@ import ar.edu.utn.frba.ddsi.clima.batch.AlertaProcesadorJob;
 import ar.edu.utn.frba.ddsi.clima.models.entities.RegistroClima;
 import ar.edu.utn.frba.ddsi.clima.models.repositories.RegistroClimaRepositories;
 import ar.edu.utn.frba.ddsi.clima.services.AlertaService;
+import ar.edu.utn.frba.ddsi.clima.services.NotificacionEmailService;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +25,9 @@ public final class AlertaProcesadorJobTest {
 
   @Mock
   private AlertaService alertaService;
+
+  @Mock
+  private NotificacionEmailService notificador;
 
   @InjectMocks
   private AlertaProcesadorJob climaProcesarAlerta;
@@ -60,6 +64,7 @@ public final class AlertaProcesadorJobTest {
 
     climaProcesarAlerta.ejecutar();
 
+    verify(notificador).enviarAlerta(registro);
     verify(alertaService).estaEnAlerta(registro);
   }
 

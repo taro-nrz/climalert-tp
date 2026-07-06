@@ -14,6 +14,7 @@ public class ClimaFetchJob {
   private final WeatherApiClient climaClient;
 
   public void ejecutar() {
+    System.out.println(">>> ClimaFetchJob ejecutando");
     var response = climaClient.obtenerClimaActual();
 
     RegistroClima registro = new RegistroClima();
